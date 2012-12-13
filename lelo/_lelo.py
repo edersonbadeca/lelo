@@ -3,20 +3,30 @@
 
 from multiprocessing import Process, Queue
 
-
-a = Process()
-
 def _xecuter(queue, func, args, kwargs):
     queue.put(func(*args, **kwargs))
 
 
-#q = Queue(1)
-#a = Process(target = soma, args=(q, 2, 3) )
+class Wrapper(object):
+    def __init__(self, func):
+        self.func = func
+        self.__name__ = func.__name__
 
-#x = a.start()
-#print q.get()
+    def __call__(self, *args, **kw):
+        self.queue = Queue(1)
+        process = Process(target=_xecuter,
+            args=(self.queue, self.func,
+                  args, kw)
+            )
+        process.start()
 
+    @property
+    def _value(self):
+        if not hasattr(self, "_real_value"):
+            self._real_value = self.queue.get()
+        return self._real_value
 
+        
 
 def paralell(func):
     """

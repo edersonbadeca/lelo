@@ -1,6 +1,6 @@
 # coding: utf-8
 # Author: João S. O. Bueno
 
-from _lelo import *
+from _lelo import paralell
 
 #

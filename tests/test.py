@@ -27,6 +27,17 @@ class Tests(unittest.TestCase):
         
         self.assertEqual(queue.get(), 5)
 
+    def test_proc_wrapper_works(self):
+
+        from lelo._lelo import Wrapper
+        def sum_(a,b):
+            return a + b
+
+        wrapped = Wrapper(sum_)
+        self.assertEqual(wrapped(2,3), None)
+        self.assertEqual(wrapped._value, 5)
+        
+        
 
 if __name__ == "__main__":
 
