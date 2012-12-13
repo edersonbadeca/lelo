@@ -8,9 +8,9 @@ return value of the function when it is about to
 be used in any Python expression.
 
 Currently, the only public member in the
-project is the "paralell" decorator, which is used just as:
+project is the "parallel" decorator, which is used just as:
 
-@paralell
+@parallel
 def retr_url(url):
     return urllib.urlopen(url).read()
 

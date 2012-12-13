@@ -5,7 +5,7 @@
 import sys, os
 sys.path.insert(0, "..")
 
-from lelo import paralell
+from lelo import parallel
 import unittest
 
 class Tests(unittest.TestCase):
@@ -38,24 +38,24 @@ class Tests(unittest.TestCase):
         self.assertEqual(result._value, 5)
         
     def test_lazy_class_factory(self):
-        from lelo._lelo import MetaParalell
-        X = MetaParalell("X", (object,), {})
+        from lelo._lelo import MetaParallel
+        X = MetaParallel("X", (object,), {})
         x = X()
         object.__setattr__(x, "_value", 10)
         self.assertEqual(x + 0, 10)
         object.__setattr__(x, "_value", {"y": 10})
         self.assertEqual(list(x.keys()), ["y"])
 
-    def test_paralell_function_creation(self):
+    def test_parallel_function_creation(self):
         from types import MethodType
-        @paralell
+        @parallel
         def soma(a, b):
             return a + b
         x = getattr(soma, "__call__")
         self.assert_(x.__class__, MethodType)
 
-    def test_paralell_execution(self):
-        @paralell
+    def test_parallel_execution(self):
+        @parallel
         def soma(a, b):
             return a + b
         result = soma(2,3)
@@ -71,7 +71,7 @@ class Tests(unittest.TestCase):
         def retr_html(url):
             return urllib.urlopen(url).read()
 
-        fast = paralell(retr_html)
+        fast = parallel(retr_html)
         t0 = time.time()
         res_0 = fast(url)
         t0 = time.time() - t0
@@ -82,7 +82,7 @@ class Tests(unittest.TestCase):
         #print "sync: %f, async: %f" % (t1, t0)
 
         self.assert_(t0 < t1)
-        self.assertEqual(len(res_0) // 10, len(res_1) // 10)
+        self.assertEqual(len(res_0) // 200, len(res_1) // 200)
         
 
 if __name__ == "__main__":

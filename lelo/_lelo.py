@@ -48,7 +48,7 @@ def __subclasscheck__(cls, other):
     return True
 
 
-class MetaParalell(type):
+class MetaParallel(type):
     def __new__(metacls, name, bases, dct):
         # FIXME: check the data_model
         # and other Python documentation -
@@ -85,7 +85,7 @@ doc = """
     of use if it is not complete
 """
 
-LazyCallWrapper = MetaParalell("paralell", (CallWrapper,), {})
+LazyCallWrapper = MetaParallel("parallel", (CallWrapper,), {})
 
 
 class Wrapper(object):
@@ -98,4 +98,4 @@ class Wrapper(object):
 
 
 
-paralell = Wrapper
+parallel = Wrapper
