@@ -62,6 +62,29 @@ class Tests(unittest.TestCase):
         #print result.__repr__
         self.assertEqual(result, 5)
 
+    def test_async_exec(self):
+        import urllib, time
+
+        url = "http://google.com"
+
+        
+        def retr_html(url):
+            return urllib.urlopen(url).read()
+
+        fast = paralell(retr_html)
+        t0 = time.time()
+        res_0 = fast(url)
+        t0 = time.time() - t0
+
+        t1 = time.time()
+        res_1 = retr_html(url)
+        t1 = time.time() - t1
+        print "sync: %f, async: %f" % (t1, t0)
+
+        self.assert_(t0 < t1)
+        self.assertEqual(len(res_0) // 10, len(res_1) // 10)
+        
+
 if __name__ == "__main__":
 
     unittest.main()
