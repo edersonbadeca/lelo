@@ -37,7 +37,12 @@ class Tests(unittest.TestCase):
         self.assertEqual(wrapped(2,3), None)
         self.assertEqual(wrapped._value, 5)
         
-        
+    def test_lazy_class_factory(self):
+        from lelo._lelo import MetaParalell
+        X = MetaParalell("X", object, {})
+        x = X()
+        x._value = 10
+        self.assertEqual(x + 0, 10)
 
 if __name__ == "__main__":
 
