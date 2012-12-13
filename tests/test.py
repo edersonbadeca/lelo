@@ -3,17 +3,30 @@
 
 
 import sys, os
-#lelo_path = os.pwd().rsplit("/", 2)[0] 
 sys.path.insert(0, "..")
-#print sys.path, __name__, locals().keys()
-#del lelo_path
 
 from lelo import paralell
 import unittest
 
 class Tests(unittest.TestCase):
-    def test_running(self):
-        assert True
+    def test_can_import(self):
+        self.assert_(__import__("lelo"))
+
+    def test_can_execute_func_out_of_process(self):
+        from multiprocessing import Queue, Process
+        from lelo._lelo import _xecuter
+        queue = Queue(1)
+
+        def sum_(a, b):
+            return a + b
+        
+        proc  = Process(target=_xecuter, 
+            args=(queue, sum_, (2, 3), {}))
+        proc.start()
+        
+        
+        self.assertEqual(queue.get(), 5)
+
 
 if __name__ == "__main__":
 
