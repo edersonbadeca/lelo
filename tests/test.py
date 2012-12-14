@@ -20,7 +20,7 @@ class Tests(unittest.TestCase):
         def sum_(a, b):
             return a + b
 
-        proc  = Process(target=_xecuter, 
+        proc  = Process(target=_xecuter,
             args=(queue, sum_, (2, 3), {}))
         proc.start()
 
@@ -36,13 +36,15 @@ class Tests(unittest.TestCase):
         result = wrapped(2,3)
         self.assertEqual(type(result), LazyCallWrapper)
         self.assertEqual(result._value, 5)
-        
+
     def test_lazy_class_factory(self):
         from lelo._lelo import MetaParallel
         X = MetaParallel("X", (object,), {})
         x = X()
+        # check for operator access and work
         object.__setattr__(x, "_value", 10)
         self.assertEqual(x + 0, 10)
+        # check for attribute access
         object.__setattr__(x, "_value", {"y": 10})
         self.assertEqual(list(x.keys()), ["y"])
 
@@ -67,7 +69,7 @@ class Tests(unittest.TestCase):
 
         url = "http://google.com"
 
-        
+
         def retr_html(url):
             return urllib.urlopen(url).read()
 
@@ -82,8 +84,22 @@ class Tests(unittest.TestCase):
         #print "sync: %f, async: %f" % (t1, t0)
 
         self.assert_(t0 < t1)
-        self.assertEqual(len(res_0) // 200, len(res_1) // 200)
-        
+        self.assertEqual(len(res_0) >> 8, len(res_1) >> 8)
+
+    def test_async_iterator(self):
+        from types import GeneratorType
+        @parallel
+        def fibonacci(limit):
+            n = 1
+            n1 = 0
+            counter = 0
+            while counter < limit:
+                n, n1 = n1, n + n1
+                counter += 1
+                yield n1
+
+        self.assertEqual(list(fibonacci(10)), [1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
+
 
 if __name__ == "__main__":
 
