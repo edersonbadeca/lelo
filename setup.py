@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '1.0rc2'
+version = '1.0rc3'
 
 setup(name='lelo',
       version=version,
@@ -14,6 +14,11 @@ setup(name='lelo',
             "Intended Audience :: Developers",
             "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
             "Operating System :: OS Independent",
+            "Programming Language :: Python :: 2.6",
+            "Programming Language :: Python :: 2.7",
+            "Programming Language :: Python :: 3.2",
+            "Programming Language :: Python :: 3.3",
+            "Programming Language :: Python :: Implementation :: PyPy",
           ], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='python parallel highperformance multicore core thread multithread python2',
       author='Joao S. O. Bueno',

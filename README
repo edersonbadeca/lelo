@@ -22,3 +22,8 @@ contents.
 Unlike Python's 3.2 concurrent.futures, there is no
 setup needed - just decorate your function
 and you are all set-up to go.
+
+Tested with Python 2.7, 3.2, 3.3, and Pypy 1.8.0
+
+
+

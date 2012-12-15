@@ -10,7 +10,7 @@ import unittest
 
 class Tests(unittest.TestCase):
     def test_can_import(self):
-        self.assert_(__import__("lelo"))
+        self.assertTrue(__import__("lelo"))
 
     def test_can_execute_func_out_of_process(self):
         from multiprocessing import Queue, Process
@@ -54,7 +54,7 @@ class Tests(unittest.TestCase):
         def soma(a, b):
             return a + b
         x = getattr(soma, "__call__")
-        self.assert_(x.__class__, MethodType)
+        self.assertTrue(x.__class__, MethodType)
 
     def test_parallel_execution(self):
         @parallel
@@ -65,13 +65,17 @@ class Tests(unittest.TestCase):
         self.assertEqual(result, 5)
 
     def test_async_exec(self):
-        import urllib, time
+        import time
+        try:
+            from urllib import urlopen
+        except ImportError:
+            from urllib.request import urlopen
 
-        url = "http://google.com"
+        url = "http://example.com"
 
 
         def retr_html(url):
-            return urllib.urlopen(url).read()
+            return urlopen(url).read()
 
         fast = parallel(retr_html)
         t0 = time.time()
@@ -83,8 +87,8 @@ class Tests(unittest.TestCase):
         t1 = time.time() - t1
         #print "sync: %f, async: %f" % (t1, t0)
 
-        self.assert_(t0 < t1)
-        self.assertEqual(len(res_0) >> 8, len(res_1) >> 8)
+        self.assertTrue(t0 < t1)
+        self.assertEqual(len(res_0), len(res_1))
 
     def test_async_iterator(self):
         from types import GeneratorType
