@@ -10,9 +10,13 @@ be used in any Python expression.
 Currently, the only public member in the
 project is the "parallel" decorator, which is used just as:
 
+```
+#!python
+
 @parallel
 def retr_url(url):
     return urllib.urlopen(url).read()
+```
 
 -And voilá - upon calling the above "retr_url",
 execution simply proceeds, while Python multiprocessing
@@ -24,6 +28,3 @@ setup needed - just decorate your function
 and you are all set-up to go.
 
 Tested with Python 2.7, 3.2, 3.3, and Pypy 1.8.0
-
-
-
