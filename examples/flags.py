@@ -3,8 +3,8 @@ flags.py: Download public-domain country flag images from the web
 
 Usage examples:
 
-    $ python flags.py        # downlad a default number of flags
-    $ python flags.py 30     # download 30 flags concurrenly
+    $ python flags.py        # download a default number of flags
+    $ python flags.py 30     # download 30 flags concurrently
     $ python flags.py 30 -s  # download 30 flags sequentially
 
 """
@@ -64,9 +64,9 @@ def main(qty_flags):
 
 @atexit.register
 def report():
-    # XXX: in Python 3 this is called after all child processess
-    # are done, but in Python 2 right after this module is done,
-    # and before most children are completed.
+    # XXX: in Python 3 this is called after all child processes
+    # are done, but in Python 2 right after the main process is
+    # done, and before most children are completed.
     elapsed = time.time() - start_time
     print('Total time: {:.3}s'.format(elapsed))
 
