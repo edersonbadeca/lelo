@@ -1,3 +1,4 @@
+Forked from https://bitbucket.org/jsbueno/lelo
 The idea is to have an ubber simple decorator
 which simply defers the calculation of any function
 or method off process.
