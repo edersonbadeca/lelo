@@ -2,6 +2,7 @@
 # Author: João S. O. Bueno
 
 from multiprocessing import Process, Queue
+import threading
 from types import GeneratorType
 
 class Stopped(object): pass
@@ -24,7 +25,9 @@ class CallWrapper(object):
             args=(queue, func,
                   args, kw)
             )
-        process.start()
+        t = threading.Thread(target=process.start())
+        t.daemon = True
+        t.start()
 
     @property
     def _value(self):
